@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Login() {
 
-  const [companyName, setCompanyName] = useState('') 
+  const navigate = useNavigate()
+
+  const [companyName, setCompanyName] = useState('')
   const [password, setPassword] = useState('')
 
-  const login = async () => { 
+  const login = async () => {
     if (!companyName || !password) {
       alert('Please fill in all fields')
       return
@@ -17,14 +20,23 @@ export default function Login() {
       const response = await axios.post(
         "http://localhost:3000/auth/login",
         {
-          company_name: companyName, 
+          company_name: companyName,
           password: password
         }
       )
 
+      // Save the token after successful login
+      localStorage.setItem('token', response.data.token)
+
       console.log("Server Response:", response.data)
       alert("Login successful")
 
+      if (companyName === "admin@gmail.com") {
+        navigate("/company")
+        return
+      }
+      navigate('/ProductStock') // Redirect to product stock page after successful login
+      
     } catch (error) {
 
       if (error.response) {
@@ -43,21 +55,22 @@ export default function Login() {
     <div>
       <h1>Login</h1>
 
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Company Name"
         value={companyName}
         onChange={(e) => setCompanyName(e.target.value)}
-      /> 
-  
-      <input 
-        type="password" 
+      />
+
+      <input
+        type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 
       <button onClick={login}>Login</button>
+      <Link to="/register">Don't have an account? Register here</Link>
     </div>
   )
 }

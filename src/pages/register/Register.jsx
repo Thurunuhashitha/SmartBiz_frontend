@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Register() {
+
+  const navigate = useNavigate()
 
   const [companyName, setCompanyName] = useState('')
   const [owner, setOwner] = useState('')
@@ -30,6 +33,7 @@ export default function Register() {
 
       console.log("Server Response:", response.data)
       alert("Registration successful")
+      navigate('/login') // Redirect to login page after successful registration
 
     } catch (error) {
 
@@ -85,6 +89,7 @@ export default function Register() {
       />
 
       <button onClick={register}>Register</button>
+      <Link to="/login">Already have an account? Login here</Link>
     </div>
   )
 }
