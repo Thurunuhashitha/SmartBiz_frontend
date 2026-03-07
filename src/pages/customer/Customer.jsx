@@ -278,8 +278,8 @@ export default function CustomerCRUD() {
           <tbody>
 
             {customers.map((c)=>(
-              <tr key={c.id}>
-                <td>{c.id}</td>
+              <tr key={c.cID}>
+                <td>{c.cID}</td>
                 <td>{c.name}</td>
                 <td>{c.phone}</td>
                 <td>{c.email}</td>
