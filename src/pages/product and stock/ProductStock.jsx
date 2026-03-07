@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import NavBar from "../../components/nav/NavBar";
 
 export default function ProductCRUD() {
   const token = localStorage.getItem("token");
@@ -140,6 +141,7 @@ export default function ProductCRUD() {
 
   return (
     <div>
+      <NavBar />
       <h1>Product CRUD Dashboard</h1>
 
       {/* Buttons to toggle sections */}
