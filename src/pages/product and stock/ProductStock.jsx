@@ -211,8 +211,8 @@ export default function ProductCRUD() {
           </thead>
           <tbody>
             {allProducts.map((p) => (
-              <tr key={p.id}>
-                <td>{p.id}</td>
+              <tr key={p.pID}>
+                <td>{p.pID}</td>
                 <td>{p.product}</td>
                 <td>{p.price}</td>
                 <td>{p.stock}</td>
