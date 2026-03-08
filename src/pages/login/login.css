@@ -1,0 +1,354 @@
+/* =============================================
+   SmartBiz — Login Page
+   login.css
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --navy-900:  #0f172a;
+  --navy-800:  #1e293b;
+  --navy-700:  #273548;
+  --teal-400:  #2dd4bf;
+  --teal-500:  #14b8a6;
+  --teal-dark: #0f766e;
+  --blue-500:  #0ea5e9;
+  --blue-dark: #0284c7;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-900: #0f172a;
+  --red-100:   #fef2f2;
+  --red-200:   #fecaca;
+  --red-500:   #ef4444;
+  --white:     #ffffff;
+  --border:    #e2e8f0;
+  --bg:        #f1f5f9;
+  --font-display: 'Bricolage Grotesque', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --ease-fast: 0.18s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Full-screen split layout ───────────────── */
+.auth-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── Left Branding Panel ────────────────────── */
+.auth-left {
+  width: 420px;
+  flex-shrink: 0;
+  background: var(--navy-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-left-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* Decorative blurred circles */
+.auth-decor {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 1;
+}
+.auth-decor--1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(20,184,166,0.18), transparent 70%);
+  top: -80px;
+  right: -80px;
+}
+.auth-decor--2 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(14,165,233,0.12), transparent 70%);
+  bottom: -60px;
+  left: -60px;
+}
+
+/* Logo */
+.auth-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--teal-500), var(--blue-500));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--white);
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(20,184,166,0.3);
+}
+
+.auth-brand {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
+
+.auth-tagline {
+  font-size: 14px;
+  color: var(--slate-400);
+  margin-bottom: 48px;
+  letter-spacing: 0.3px;
+}
+
+/* Feature list */
+.auth-features {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.auth-feature {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--slate-400);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.auth-feature-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--teal-400);
+}
+
+/* ── Right Form Panel ───────────────────────── */
+.auth-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--bg);
+}
+
+.auth-form-box {
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-form-header {
+  margin-bottom: 32px;
+}
+
+.auth-form-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.auth-form-subtitle {
+  font-size: 14px;
+  color: var(--slate-500);
+}
+
+/* ── Error Alert ────────────────────────────── */
+.auth-error {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--red-100);
+  border: 1px solid var(--red-200);
+  border-left: 3px solid var(--red-500);
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 13.5px;
+  color: #b91c1c;
+  font-weight: 500;
+  margin-bottom: 22px;
+  animation: shake 0.35s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+/* ── Form Fields ────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.form-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--slate-600);
+  letter-spacing: 0.2px;
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 13px;
+  color: var(--slate-400);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.form-input {
+  width: 100%;
+  padding: 11px 13px 11px 38px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--slate-900);
+  background: var(--white);
+  outline: none;
+  transition: border-color var(--ease-fast), box-shadow var(--ease-fast);
+}
+
+.form-input:focus {
+  border-color: var(--teal-500);
+  box-shadow: 0 0 0 3px rgba(20,184,166,0.1);
+}
+
+.form-input::placeholder { color: var(--slate-400); }
+
+/* Password toggle */
+.input-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--slate-400);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 5px;
+  transition: color var(--ease-fast);
+}
+.input-toggle:hover { color: var(--slate-700); }
+
+/* ── Submit Button ──────────────────────────── */
+.auth-btn {
+  width: 100%;
+  padding: 13px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--teal-500), var(--blue-500));
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(20,184,166,0.3);
+  transition: background var(--ease-fast), box-shadow var(--ease-fast), opacity var(--ease-fast), transform var(--ease-fast);
+}
+
+.auth-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--teal-dark), var(--blue-dark));
+  box-shadow: 0 6px 20px rgba(20,184,166,0.38);
+  transform: translateY(-1px);
+}
+
+.auth-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.auth-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Button spinner */
+.auth-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Footer text ────────────────────────────── */
+.auth-footer-text {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 13.5px;
+  color: var(--slate-500);
+}
+
+.auth-link {
+  color: var(--teal-500);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--ease-fast);
+}
+.auth-link:hover { color: var(--teal-dark); }
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 768px) {
+  .auth-wrapper { flex-direction: column; }
+
+  .auth-left {
+    width: 100%;
+    padding: 36px 24px;
+    min-height: auto;
+  }
+
+  .auth-features { display: none; }
+
+  .auth-brand { font-size: 26px; }
+  .auth-tagline { margin-bottom: 0; }
+
+  .auth-right { padding: 36px 24px; }
+}
