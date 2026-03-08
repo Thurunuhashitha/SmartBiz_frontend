@@ -253,9 +253,13 @@ body { font-family: var(--font-body); background: var(--bg); -webkit-font-smooth
   display: flex;
   align-items: center;
   pointer-events: none;
+  z-index: 00;
 }
 
 .form-input {
+  position: relative;   /* ← creates stacking context */
+  z-index: 1;           /* ← input + placeholder render above the icon */
+  background: transparent;
   width: 100%;
   padding: 10px 13px 10px 38px;
   border: 1.5px solid var(--border);
@@ -265,7 +269,7 @@ body { font-family: var(--font-body); background: var(--bg); -webkit-font-smooth
   color: var(--slate-900);
   background: var(--white);
   outline: none;
-  transition: border-color var(--ease-fast), box-shadow var(--ease-fast);
+  transition: border-color var(--ease-fast), box-shadow var(--ease-fast); 
 }
 
 .form-input:focus {
