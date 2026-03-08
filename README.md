@@ -1,16 +1,25 @@
-# React + Vite
+# SmartBiz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**SmartBiz** is a full-stack web application designed as a comprehensive Business Management / ERP (Enterprise Resource Planning) or Point-of-Sale (POS) system. It is built to handle multiple business operations including inventory, sales, expenses, and user management.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. Backend (`SmartBiz_backend`)
+The backend is a RESTful API built with **Node.js** and **Express.js**.
+- **Database:** It uses **MySQL** (via the `mysql2` package) to store and manage data.
+- **Authentication & Security:** It secures user access using `bcrypt` for password hashing and `jsonwebtoken` (JWT) for secure authentication.
+- **Core Modules (Routes):** Based on the `index.js` file, the backend is organized into several key operational areas:
+  - **Auth:** For login, registration, and session management.
+  - **Products & Suppliers:** For inventory management, tracking items, and managing the supply chain.
+  - **Sales & Customers:** For processing transactions, recording sales, and managing a customer database.
+  - **Expenses:** For tracking business costs and financial outflows.
+  - **Admin:** Likely for role-based access control and system-wide configurations.
 
-## React Compiler
+### 2. Frontend (`SmartBiz_frontend`)
+The frontend is a modern Single Page Application (SPA) built using **React**.
+- **Build Tool:** It is bootstrapped using **Vite**, ensuring fast development server startup and optimized production builds.
+- **Routing:** Uses **React Router** (`react-router-dom`) to handle client-side page navigation without reloading the browser.
+- **API Integration:** Uses **Axios** to securely communicate with the Express backend to fetch and submit business data.
+- **Code Quality:** It includes a pre-configured ESLint setup to maintain clean and consistent code standards.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+In summary, it's a strongly decoupled, modern web application where the React frontend serves as the user interface and interacts dynamically with a secured Node.js/MySQL API that centralizes the core business logic.
