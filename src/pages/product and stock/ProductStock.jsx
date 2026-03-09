@@ -5,7 +5,7 @@ import "./product.css";
 export default function ProductCRUD() {
   const token = localStorage.getItem("token");
 
-  const [activeSection, setActiveSection] = useState(null); // 'add' | 'getById' | 'update' | 'delete'
+  const [activeSection, setActiveSection] = useState(null);
   const [id, setId] = useState("");
   const [product, setProduct] = useState("");
   const [price, setPrice] = useState("");
@@ -13,8 +13,9 @@ export default function ProductCRUD() {
   const [supplier, setSupplier] = useState("");
   const [date_added, setDateAdded] = useState("");
   const [allProducts, setAllProducts] = useState([]);
+
   const [loading, setLoading] = useState(false);
-  const [toast, setToast] = useState(null); // { msg, type }
+  const [toast, setToast] = useState(null);
 
   const showToast = (msg, type = "success") => {
     setToast({ msg, type });
@@ -28,6 +29,10 @@ export default function ProductCRUD() {
     setId(""); setProduct(""); setPrice("");
     setStock(""); setSupplier(""); setDateAdded("");
   };
+
+  const totalStockValue = allProducts.reduce(
+    (sum, p) => sum + Number(p.price) * Number(p.stock), 0
+  );
 
   // ── API Calls ──────────────────────────────────────
   const addProduct = async () => {
@@ -54,7 +59,9 @@ export default function ProductCRUD() {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      if (res.ok || !data.error) setAllProducts(data);
+      if (res.ok || !data.error) {
+        setAllProducts(data);
+      }
       else showToast(data.error || "Failed to fetch products", "error");
     } catch { showToast("Failed to fetch products", "error"); }
     setLoading(false);
@@ -283,7 +290,7 @@ export default function ProductCRUD() {
           </div>
         )}
 
-        {/* ── Products Table ── */}
+        {/* ── Loading ── */}
         {loading && allProducts.length === 0 && (
           <div className="loading-state">
             <div className="spinner" />
@@ -291,6 +298,8 @@ export default function ProductCRUD() {
           </div>
         )}
 
+
+        {/* ── Products Table ── */}
         {allProducts.length > 0 && (
           <div className="table-card">
             <div className="table-card-header">
@@ -308,6 +317,7 @@ export default function ProductCRUD() {
                     <th>Product Name</th>
                     <th>Price</th>
                     <th>Stock</th>
+                    <th>Stock Value</th>
                     <th>Supplier</th>
                     <th>Date Added</th>
                   </tr>
@@ -323,11 +333,24 @@ export default function ProductCRUD() {
                           {p.stock} units
                         </span>
                       </td>
+                      <td>
+                        <span className="stock-value">
+                          LKR {(Number(p.stock) * Number(p.price)).toLocaleString()}
+                        </span>
+                      </td>
                       <td>{p.supplier}</td>
                       <td>{new Date(p.date_added).toLocaleDateString("en-GB")}</td>
                     </tr>
                   ))}
                 </tbody>
+                <tfoot>
+                  <tr className="table-total-row">
+                    <td colSpan="4" className="table-total-label">Total Stock Value</td>
+                    <td className="table-total-value" colSpan="3">
+                      LKR {totalStockValue.toLocaleString()}
+                    </td>
+                  </tr>
+                </tfoot>
               </table>
             </div>
           </div>
