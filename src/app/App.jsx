@@ -7,6 +7,7 @@ import Customer from '../pages/customer/Customer'
 import Supplier from '../pages/sapplier/Sapplier'
 import Sales from '../pages/sales/Sales'
 import Expenses from '../pages/expenses/Expenses'
+import AiInsights from '../pages/ai/AiInsights'
 import { Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/supplier' element = {<Supplier/>} />
         <Route path='/sales' element = {<Sales/>} />
         <Route path='/expenses' element = {<Expenses/>} />
+        <Route path='/ai-insights' element = {<AiInsights/>} />
       </Routes> 
    </div>
   )
