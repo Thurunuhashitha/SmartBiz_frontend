@@ -1,25 +1,45 @@
-# SmartBiz
+# SmartBiz Frontend
 
-**SmartBiz** is a full-stack web application designed as a comprehensive Business Management / ERP (Enterprise Resource Planning) or Point-of-Sale (POS) system. It is built to handle multiple business operations including inventory, sales, expenses, and user management.
+The frontend for SmartBiz is a modern, responsive Single Page Application (SPA) built using React and Vite, designed to provide a seamless user experience for business management.
 
-## Project Structure
+## Key Technologies
+- **React**: Component-based UI library.
+- **Vite**: Rapid development build tool.
+- **React Router**: Client-side navigation Handling.
+- **Axios**: HTTP client for API communication.
+- **CSS**: Custom vanilla CSS for high-performance styling.
 
-### 1. Backend (`SmartBiz_backend`)
-The backend is a RESTful API built with **Node.js** and **Express.js**.
-- **Database:** It uses **MySQL** (via the `mysql2` package) to store and manage data.
-- **Authentication & Security:** It secures user access using `bcrypt` for password hashing and `jsonwebtoken` (JWT) for secure authentication.
-- **Core Modules (Routes):** Based on the `index.js` file, the backend is organized into several key operational areas:
-  - **Auth:** For login, registration, and session management.
-  - **Products & Suppliers:** For inventory management, tracking items, and managing the supply chain.
-  - **Sales & Customers:** For processing transactions, recording sales, and managing a customer database.
-  - **Expenses:** For tracking business costs and financial outflows.
-  - **Admin:** Likely for role-based access control and system-wide configurations.
+## Folder Structure
+- `src/app/`: Core application setup including the main [App.jsx](file:///d:/Runing Projects/SmartBiz/SmartBiz_frontend/src/app/App.jsx).
+- `src/components/`: Reusable UI components.
+- `src/pages/`: Page-level components organized by feature:
+    - `admin/`: System management controls.
+    - `ai/`: AI insights and reporting interface.
+    - `customer/`: Customer management and sales entry.
+    - `expenses/`: Financial tracking UI.
+    - `login/` / `register/`: Authentication views.
+    - `product and stock/`: Inventory management dashboard.
+    - `sales/`: Transaction history and processing.
+    - `sapplier/`: Supplier management.
+- `src/assets/`: Static assets like images and icons.
+- `src/styles/`: Global and component-specific stylesheets.
 
-### 2. Frontend (`SmartBiz_frontend`)
-The frontend is a modern Single Page Application (SPA) built using **React**.
-- **Build Tool:** It is bootstrapped using **Vite**, ensuring fast development server startup and optimized production builds.
-- **Routing:** Uses **React Router** (`react-router-dom`) to handle client-side page navigation without reloading the browser.
-- **API Integration:** Uses **Axios** to securely communicate with the Express backend to fetch and submit business data.
-- **Code Quality:** It includes a pre-configured ESLint setup to maintain clean and consistent code standards.
+## API Integration
+The frontend communicates with the backend API (running on port 3000 by default) using Axios. All requests are routed through a central base configuration to ensure consistency and easy proxy management.
 
-In summary, it's a strongly decoupled, modern web application where the React frontend serves as the user interface and interacts dynamically with a secured Node.js/MySQL API that centralizes the core business logic.
+## Setup Instructions
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start development server:
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:5173`.
+
+## Features
+- **Interactive Dashboards**: Real-time view of business performance.
+- **Dynamic Forms**: Easy entry for sales, inventory, and expenses.
+- **Responsive Design**: Accessible from desktops, tablets, and mobile devices.
+- **AI Sidebar/Reporting**: Direct access to AI-powered business intelligence.
