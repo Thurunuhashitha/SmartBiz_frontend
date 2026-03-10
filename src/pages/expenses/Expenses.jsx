@@ -11,7 +11,6 @@ export default function ExpenseCRUD() {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [expenses, setExpenses] = useState([]);
-  const [profitSummary, setProfitSummary] = useState(null);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
 
@@ -56,19 +55,6 @@ export default function ExpenseCRUD() {
     setLoading(false);
   };
 
-  const getProfitSummary = async () => {
-    try {
-      const res = await fetch("http://localhost:3000/expense/getProfitSummary", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      if (res.ok) setProfitSummary(data);
-    } catch { console.error("Error fetching profit summary"); }
-  };
-
-  React.useEffect(() => {
-    getProfitSummary();
-  }, []);
 
   const getExpenseById = async () => {
     if (!id) return showToast("Enter expense ID", "error");
@@ -158,45 +144,8 @@ export default function ExpenseCRUD() {
           </button>
         </div>
 
-        {/* ── Business Profit Dashboard ── */}
-        {profitSummary && (
-          <div className="profit-dashboard">
-            <h2 className="dashboard-title">Business Profit Overview</h2>
-            <div className="summary-row">
-              <div className="summary-card">
-                <div className="summary-icon summary-icon--teal">💰</div>
-                <div>
-                  <p className="summary-label">Total Revenue (Sales)</p>
-                  <p className="summary-value text-success">LKR {profitSummary.revenue.toLocaleString()}</p>
-                </div>
-              </div>
-              <div className="summary-card">
-                <div className="summary-icon summary-icon--orange">📦</div>
-                <div>
-                  <p className="summary-label">Cost of Goods (Suppliers)</p>
-                  <p className="summary-value text-danger">LKR {profitSummary.supplierCosts.toLocaleString()}</p>
-                </div>
-              </div>
-              <div className="summary-card">
-                <div className="summary-icon summary-icon--red">🧾</div>
-                <div>
-                  <p className="summary-label">Operating Expenses</p>
-                  <p className="summary-value text-danger">LKR {profitSummary.otherExpenses.toLocaleString()}</p>
-                </div>
-              </div>
-              <div className="summary-card highlight-profit">
-                <div className="summary-icon summary-icon--purple">📈</div>
-                <div>
-                  <p className="summary-label">Net Profit</p>
-                  <p className={`summary-value ${profitSummary.netProfit >= 0 ? "text-success" : "text-danger"}`}>
-                    LKR {profitSummary.netProfit.toLocaleString()}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <br />
-          </div>
-        )}
+
+        {/* Summary Cards */}
 
         {/* Summary Cards */}
         {expenses.length > 0 && (
