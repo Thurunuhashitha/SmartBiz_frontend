@@ -10,7 +10,10 @@ export default function SupplierCRUD() {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [product, setProduct] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
   const [phone, setPhone] = useState("");
+  const [supplyDate, setSupplyDate] = useState("");
   const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
@@ -24,18 +27,21 @@ export default function SupplierCRUD() {
     setActiveSection((prev) => (prev === section ? null : section));
 
   const resetForm = () => {
-    setId(""); setName(""); setProduct(""); setPhone("");
+    setId(""); setName(""); setProduct(""); setQuantity("");
+    setPrice(""); setPhone(""); setSupplyDate("");
   };
 
   // ── API Calls ──────────────────────────────
   const createSupplier = async () => {
-    if (!name || !product || !phone) return showToast("Please fill all fields", "error");
+    if (!name || !product || !phone || !quantity || !price )
+      return showToast("Please fill all fields", "error");
+
     setLoading(true);
     try {
       const res = await fetch("http://localhost:3000/supplier/createSupplier", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ name, product, phone }),
+        body: JSON.stringify({ name, product, quantity, price, phone  }),
       });
       const data = await res.json();
       if (res.ok) { showToast("Supplier created successfully"); resetForm(); setActiveSection(null); }
@@ -77,7 +83,7 @@ export default function SupplierCRUD() {
       const res = await fetch(`http://localhost:3000/supplier/updateSupplier/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ name, product, phone }),
+        body: JSON.stringify({ name, product, quantity, price, phone }),
       });
       const data = await res.json();
       if (res.ok) { showToast("Supplier updated successfully"); resetForm(); setActiveSection(null); }
@@ -128,44 +134,31 @@ export default function SupplierCRUD() {
             <p className="page-subtitle">Manage your suppliers and their products</p>
           </div>
           <button className="btn btn--primary" onClick={() => toggleSection("create")}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-            </svg>
-            Add Supplier
+            + Add Supplier
           </button>
         </div>
 
         {/* Action Bar */}
         <div className="action-bar">
           <button className="btn btn--outline" onClick={getAllSuppliers}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="1" y="3" width="15" height="13" rx="2"/>
-              <path d="M16 8h4l3 3v5h-7V8z"/>
-              <circle cx="5.5" cy="18.5" r="2.5"/>
-              <circle cx="18.5" cy="18.5" r="2.5"/>
-            </svg>
             All Suppliers
           </button>
-          <button className={`btn btn--outline${activeSection === "getById" ? " active" : ""}`} onClick={() => toggleSection("getById")}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
+          <button
+            className={`btn btn--outline${activeSection === "getById" ? " active" : ""}`}
+            onClick={() => toggleSection("getById")}
+          >
             Search by ID
           </button>
-          <button className={`btn btn--outline${activeSection === "update" ? " active" : ""}`} onClick={() => toggleSection("update")}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-            </svg>
+          <button
+            className={`btn btn--outline${activeSection === "update" ? " active" : ""}`}
+            onClick={() => toggleSection("update")}
+          >
             Update
           </button>
-          <button className={`btn btn--danger-outline${activeSection === "delete" ? " active" : ""}`} onClick={() => toggleSection("delete")}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="3 6 5 6 21 6"/>
-              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
-              <path d="M10 11v6"/><path d="M14 11v6"/>
-              <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
-            </svg>
+          <button
+            className={`btn btn--danger-outline${activeSection === "delete" ? " active" : ""}`}
+            onClick={() => toggleSection("delete")}
+          >
             Delete
           </button>
         </div>
@@ -175,21 +168,29 @@ export default function SupplierCRUD() {
           <div className="panel">
             <div className="panel-header">
               <h2 className="panel-title">Add New Supplier</h2>
-              <button className="panel-close" onClick={() => setActiveSection(null)}>✕</button>
+              <button className="panel-close" onClick={() => { resetForm(); setActiveSection(null); }}>✕</button>
             </div>
             <div className="form-grid">
               <div className="form-group">
                 <label className="form-label">Supplier Name</label>
-                <input className="form-input" placeholder="e.g. ABC Trading Co." value={name} onChange={(e) => setName(e.target.value)} />
+                <input className="form-input" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. ABC Traders" />
               </div>
               <div className="form-group">
-                <label className="form-label">Product Supplied</label>
-                <input className="form-input" placeholder="e.g. Electronics" value={product} onChange={(e) => setProduct(e.target.value)} />
+                <label className="form-label">Product</label>
+                <input className="form-input" value={product} onChange={e => setProduct(e.target.value)} placeholder="e.g. Rice" />
               </div>
-              <div className="form-group form-group--full">
-                <label className="form-label">Phone Number</label>
-                <input className="form-input" placeholder="e.g. 0112345678" value={phone} onChange={(e) => setPhone(e.target.value)} />
+              <div className="form-group">
+                <label className="form-label">Quantity</label>
+                <input className="form-input" type="number" value={quantity} onChange={e => setQuantity(e.target.value)} placeholder="0" />
               </div>
+              <div className="form-group">
+                <label className="form-label">Price</label>
+                <input className="form-input" type="number" step="0.01" value={price} onChange={e => setPrice(e.target.value)} placeholder="0.00" />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Phone</label>
+                <input className="form-input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+94 77 000 0000" />
+              </div> 
             </div>
             <div className="panel-actions">
               <button className="btn btn--ghost" onClick={() => { resetForm(); setActiveSection(null); }}>Cancel</button>
@@ -205,10 +206,15 @@ export default function SupplierCRUD() {
           <div className="panel">
             <div className="panel-header">
               <h2 className="panel-title">Search Supplier by ID</h2>
-              <button className="panel-close" onClick={() => setActiveSection(null)}>✕</button>
+              <button className="panel-close" onClick={() => { setId(""); setActiveSection(null); }}>✕</button>
             </div>
             <div className="form-inline">
-              <input className="form-input" type="number" placeholder="Enter Supplier ID" value={id} onChange={(e) => setId(e.target.value)} />
+              <input
+                className="form-input"
+                value={id}
+                onChange={e => setId(e.target.value)}
+                placeholder="Enter Supplier ID"
+              />
               <button className="btn btn--primary" onClick={getSupplierById} disabled={loading}>
                 {loading ? "Searching..." : "Search"}
               </button>
@@ -221,30 +227,38 @@ export default function SupplierCRUD() {
           <div className="panel">
             <div className="panel-header">
               <h2 className="panel-title">Update Supplier</h2>
-              <button className="panel-close" onClick={() => setActiveSection(null)}>✕</button>
+              <button className="panel-close" onClick={() => { resetForm(); setActiveSection(null); }}>✕</button>
             </div>
             <div className="form-grid">
               <div className="form-group form-group--full">
                 <label className="form-label">Supplier ID <span className="form-required">*</span></label>
-                <input className="form-input" type="number" placeholder="Enter ID to update" value={id} onChange={(e) => setId(e.target.value)} />
+                <input className="form-input" value={id} onChange={e => setId(e.target.value)} placeholder="Enter ID to update" />
               </div>
               <div className="form-group">
                 <label className="form-label">Supplier Name</label>
-                <input className="form-input" placeholder="Supplier name" value={name} onChange={(e) => setName(e.target.value)} />
+                <input className="form-input" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. ABC Traders" />
               </div>
               <div className="form-group">
-                <label className="form-label">Product Supplied</label>
-                <input className="form-input" placeholder="Product" value={product} onChange={(e) => setProduct(e.target.value)} />
+                <label className="form-label">Product</label>
+                <input className="form-input" value={product} onChange={e => setProduct(e.target.value)} placeholder="e.g. Rice" />
               </div>
-              <div className="form-group form-group--full">
-                <label className="form-label">Phone Number</label>
-                <input className="form-input" placeholder="Phone number" value={phone} onChange={(e) => setPhone(e.target.value)} />
+              <div className="form-group">
+                <label className="form-label">Quantity</label>
+                <input className="form-input" type="number" value={quantity} onChange={e => setQuantity(e.target.value)} placeholder="0" />
               </div>
+              <div className="form-group">
+                <label className="form-label">Price</label>
+                <input className="form-input" type="number" step="0.01" value={price} onChange={e => setPrice(e.target.value)} placeholder="0.00" />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Phone</label>
+                <input className="form-input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+94 77 000 0000" />
+              </div> 
             </div>
             <div className="panel-actions">
               <button className="btn btn--ghost" onClick={() => { resetForm(); setActiveSection(null); }}>Cancel</button>
               <button className="btn btn--primary" onClick={updateSupplier} disabled={loading}>
-                {loading ? "Updating..." : "Confirm Update"}
+                {loading ? "Updating..." : "Update Supplier"}
               </button>
             </div>
           </div>
@@ -255,35 +269,38 @@ export default function SupplierCRUD() {
           <div className="panel panel--danger">
             <div className="panel-header">
               <h2 className="panel-title">Delete Supplier</h2>
-              <button className="panel-close" onClick={() => setActiveSection(null)}>✕</button>
+              <button className="panel-close" onClick={() => { setId(""); setActiveSection(null); }}>✕</button>
             </div>
-            <p className="panel-warning">This action is permanent and cannot be undone.</p>
+            <p className="panel-warning">⚠ This action is permanent and cannot be undone.</p>
             <div className="form-inline">
-              <input className="form-input" type="number" placeholder="Enter Supplier ID to delete" value={id} onChange={(e) => setId(e.target.value)} />
+              <input
+                className="form-input"
+                value={id}
+                onChange={e => setId(e.target.value)}
+                placeholder="Enter Supplier ID to delete"
+              />
               <button className="btn btn--danger" onClick={deleteSupplier} disabled={loading}>
-                {loading ? "Deleting..." : "Confirm Delete"}
+                {loading ? "Deleting..." : "Delete"}
               </button>
             </div>
           </div>
         )}
 
-        {/* ── Loading ── */}
+        {/* ── Suppliers Table ── */}
         {loading && suppliers.length === 0 && (
           <div className="loading-state">
             <div className="spinner" />
-            <span>Loading suppliers...</span>
+            Loading suppliers...
           </div>
         )}
 
-        {/* ── Suppliers Table ── */}
         {suppliers.length > 0 && (
           <div className="table-card">
             <div className="table-card-header">
-              <h2 className="table-card-title">
+              <h3 className="table-card-title">
                 Suppliers
                 <span className="table-badge">{suppliers.length}</span>
-              </h2>
-              <button className="btn btn--ghost btn--sm" onClick={() => setSuppliers([])}>Clear</button>
+              </h3>
             </div>
             <div className="table-wrapper">
               <table className="data-table">
@@ -292,11 +309,14 @@ export default function SupplierCRUD() {
                     <th>ID</th>
                     <th>Supplier</th>
                     <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
                     <th>Phone</th>
+                    <th>Supply Date</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {suppliers.map((s) => (
+                  {suppliers.map(s => (
                     <tr key={s.sID}>
                       <td><span className="id-badge">#{s.sID}</span></td>
                       <td>
@@ -306,21 +326,14 @@ export default function SupplierCRUD() {
                         </div>
                       </td>
                       <td>
-                        <span className="product-tag">
-                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                          </svg>
-                          {s.product}
-                        </span>
+                        <span className="product-tag">📦 {s.product}</span>
                       </td>
+                      <td>{s.quantity}</td>
+                      <td>${Number(s.price).toFixed(2)}</td>
                       <td>
-                        <a className="contact-link" href={`tel:${s.phone}`}>
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                          </svg>
-                          {s.phone}
-                        </a>
+                        <a className="contact-link" href={`tel:${s.phone}`}>📞 {s.phone}</a>
                       </td>
+                      <td>{s.supply_date ? new Date(s.supply_date).toLocaleDateString() : "—"}</td>
                     </tr>
                   ))}
                 </tbody>

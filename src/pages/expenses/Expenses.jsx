@@ -55,6 +55,7 @@ export default function ExpenseCRUD() {
     setLoading(false);
   };
 
+
   const getExpenseById = async () => {
     if (!id) return showToast("Enter expense ID", "error");
     setLoading(true);
@@ -142,6 +143,9 @@ export default function ExpenseCRUD() {
             Add Expense
           </button>
         </div>
+
+
+        {/* Summary Cards */}
 
         {/* Summary Cards */}
         {expenses.length > 0 && (
