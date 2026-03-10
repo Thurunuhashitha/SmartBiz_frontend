@@ -8,7 +8,7 @@ import Supplier from '../pages/sapplier/Sapplier'
 import Sales from '../pages/sales/Sales'
 import Expenses from '../pages/expenses/Expenses'
 import AiInsights from '../pages/ai/AiInsights'
-import DashboardOverview from '../pages/admin/DashboardOverview'
+import DashboardOverview from '../pages/dashboard/DashboardOverview'
 import { Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 
