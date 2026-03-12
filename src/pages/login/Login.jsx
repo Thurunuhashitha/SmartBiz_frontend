@@ -28,10 +28,10 @@ export default function Login() {
       localStorage.setItem('token', response.data.token)
 
       if (companyName === 'admin@gmail.com') {
-        navigate('/company')
+        navigate('/admin/dashboard')
         return
       }
-      navigate('/ProductStock')
+      navigate('/dashboard')
 
     } catch (error) {
       if (error.response) {
