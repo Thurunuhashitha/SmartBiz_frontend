@@ -45,7 +45,9 @@ export default function SupplierCRUD() {
       });
       const data = await res.json();
       if (res.ok) { showToast("Supplier created successfully"); resetForm(); setActiveSection(null); }
-      else showToast(data.error || "Failed to create supplier", "error");
+      else {
+        showToast(data.message || data.error || "Failed to create supplier", "error");
+      }
     } catch { showToast("Error creating supplier", "error"); }
     setLoading(false);
   };

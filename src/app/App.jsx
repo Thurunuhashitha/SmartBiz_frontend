@@ -2,7 +2,7 @@ import './App.css'
 import Register from '../pages/register/Register'
 import Login from '../pages/login/Login'
 import Company from '../pages/admin/company/Company'
-import ProductStock from '../pages/product and stock/productStock'
+import ProductStock from '../pages/product and stock/ProductStock'
 import Customer from '../pages/customer/Customer'
 import Supplier from '../pages/sapplier/Sapplier'
 import Sales from '../pages/sales/Sales'
@@ -10,8 +10,9 @@ import Expenses from '../pages/expenses/Expenses'
 import AiInsights from '../pages/ai/AiInsights'
 import DashboardOverview from '../pages/dashboard/DashboardOverview'
 import AdminDashboard from '../pages/admin/AdminDashboard'
-import { Routes } from 'react-router-dom'
-import { Route } from 'react-router-dom'
+import Plans from '../pages/plans/Plans'
+import { Routes, Route } from 'react-router-dom'
+import AdminPlans from '../pages/admin/AdminPlans'
 
 function App() { 
 
@@ -31,7 +32,9 @@ function App() {
         <Route path='/sales' element = {<Sales/>} />
         <Route path='/expenses' element = {<Expenses/>} />
         <Route path='/ai-insights' element = {<AiInsights/>} />
+        <Route path='/plans' element = {<Plans/>} />
         <Route path='/admin/dashboard' element = {<AdminDashboard/>} />
+        <Route path='/admin/plans' element = {<AdminPlans/>} />
       </Routes> 
    </div>
   )

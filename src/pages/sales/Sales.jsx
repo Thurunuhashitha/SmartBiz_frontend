@@ -15,11 +15,6 @@ export default function SalesPage() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  // ── Fetch on mount ───────────────────────────
-  useEffect(() => {
-    fetchSales();
-  }, []);
-
   const fetchSales = async () => {
     setLoading(true);
     try {
@@ -34,6 +29,11 @@ export default function SalesPage() {
     }
     setLoading(false);
   };
+
+  // ── Fetch on mount ───────────────────────────
+  useEffect(() => {
+    fetchSales();
+  }, []);
 
   // ── Calculations ─────────────────────────────
   const totalRevenue = sales.reduce(
