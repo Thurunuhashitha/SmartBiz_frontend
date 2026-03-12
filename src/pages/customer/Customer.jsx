@@ -17,6 +17,7 @@ export default function CustomerCRUD() {
   const [unit_price, setUnitPrice] = useState("");
   const [sale_date, setSaleDate] = useState("");
   const [customers, setCustomers] = useState([]);
+  const [availableProducts, setAvailableProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
 
@@ -26,8 +27,12 @@ export default function CustomerCRUD() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const toggleSection = (section) =>
+  const toggleSection = (section) => {
     setActiveSection((prev) => (prev === section ? null : section));
+    if (section === "create" || section === "update") {
+      fetchAvailableProducts();
+    }
+  };
 
   const resetForm = () => {
     setId("");
@@ -41,6 +46,18 @@ export default function CustomerCRUD() {
   };
 
   // ── API Calls ──────────────────────────────
+  const fetchAvailableProducts = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/product/getAvailableProducts", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (res.ok) setAvailableProducts(data);
+    } catch {
+      showToast("Error fetching available products", "error");
+    }
+  };
+
   const createCustomer = async () => {
     if (!customer_name || !phone || !email || !product || !quantity || !unit_price )
       return showToast("Please fill all fields", "error");
@@ -142,6 +159,16 @@ export default function CustomerCRUD() {
   const getInitials = (n) =>
     n ? n.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase() : "?";
 
+  const handleProductChange = (e) => {
+    const selectedProductName = e.target.value;
+    setProduct(selectedProductName);
+    
+    const selectedProd = availableProducts.find(p => p.product_name === selectedProductName);
+    if (selectedProd) {
+      setUnitPrice(selectedProd.unit_price);
+    }
+  };
+
   // ── JSX ──────────────────────────────
   return (
     <div className="page-wrapper">
@@ -194,7 +221,18 @@ export default function CustomerCRUD() {
               </div>
               <div className="form-group">
                 <label className="form-label">Product <span className="form-required">*</span></label>
-                <input className="form-input" value={product} onChange={(e) => setProduct(e.target.value)} placeholder="e.g. Rice" />
+                <select 
+                  className="form-input" 
+                  value={product} 
+                  onChange={handleProductChange}
+                >
+                  <option value="">Select a product</option>
+                  {availableProducts.map(p => (
+                    <option key={p.pID} value={p.product_name}>
+                      {p.product_name} ({p.current_stock} in stock)
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="form-group">
                 <label className="form-label">Quantity <span className="form-required">*</span></label>
@@ -262,7 +300,18 @@ export default function CustomerCRUD() {
               </div>
               <div className="form-group">
                 <label className="form-label">Product</label>
-                <input className="form-input" value={product} onChange={(e) => setProduct(e.target.value)} placeholder="e.g. Rice" />
+                <select 
+                  className="form-input" 
+                  value={product} 
+                  onChange={handleProductChange}
+                >
+                  <option value="">Select a product</option>
+                  {availableProducts.map(p => (
+                    <option key={p.pID} value={p.product_name}>
+                      {p.product_name} ({p.current_stock} in stock)
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="form-group">
                 <label className="form-label">Quantity</label>

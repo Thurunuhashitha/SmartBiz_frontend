@@ -132,6 +132,7 @@ export default function NavBar() {
       </nav>
 
       {/* Footer / User */}
+      <Link to="/login">
       <div className="sb-footer">
         <div className="sb-user">
           <div className="sb-avatar">AD</div>
@@ -141,6 +142,7 @@ export default function NavBar() {
           </div>
         </div>
       </div>
+      </Link>
 
     </aside>
   )
