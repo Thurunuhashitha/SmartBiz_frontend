@@ -1,0 +1,109 @@
+/* =============================================
+   SmartBiz — Products & Stock Page
+   product.css  |  Requires global.css
+   ============================================= */
+
+/* ── Supplier cell (reused from supplier page) ── */
+.supplier-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.supplier-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #14b8a6, #0ea5e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+.supplier-name {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ── Product Tag ──────────────────────────── */
+.product-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #f0fdfa;
+  color: #0f766e;
+  border: 1px solid #ccfbf1;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+/* ── Price & Stock Value ──────────────────── */
+.price {
+  font-weight: 600;
+  color: #0f766e;
+}
+
+.stock-value {
+  font-weight: 700;
+  color: #0284c7;
+  font-size: 13px;
+}
+
+/* ── Stock Badge (quantity level indicator) ── */
+.stock-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stock-badge--ok {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.stock-badge--mid {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.stock-badge--low {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+/* ── Table Footer Total Row ──────────────── */
+.table-total-row {
+  background: linear-gradient(135deg, #f0fdfa, #e0f2fe);
+  border-top: 2px solid #ccfbf1;
+}
+
+.table-total-row td {
+  border-bottom: none;
+  padding: 14px 18px;
+}
+
+.table-total-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #0f766e;
+}
+
+.table-total-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f766e;
+}

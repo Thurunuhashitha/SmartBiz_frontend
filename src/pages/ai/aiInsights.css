@@ -1,0 +1,443 @@
+/* =============================================
+   AI Insights — Page Styles
+   Uses global.css tokens. All rules scoped
+   under .ai-insights to prevent any leakage.
+   ============================================= */
+
+/* ─── Tab Bar ───────────────────────────────── */
+
+.ai-insights .ai-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1.5px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.ai-insights .ai-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1.5px;
+  padding: 10px 20px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--slate-500);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: color var(--ease-fast), border-color var(--ease-fast);
+  white-space: nowrap;
+}
+
+.ai-insights .ai-tab:hover:not(.active) {
+  color: var(--slate-700);
+}
+
+.ai-insights .ai-tab.active {
+  color: var(--teal-500);
+  border-bottom-color: var(--teal-500);
+  font-weight: 600;
+}
+
+.ai-insights .ai-tab svg {
+  opacity: 0.6;
+}
+
+.ai-insights .ai-tab.active svg {
+  opacity: 1;
+  color: var(--teal-500);
+}
+
+/* ─── Status Badge ──────────────────────────── */
+
+.ai-insights .ai-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  color: var(--teal-dark);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+.ai-insights .status-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--teal-500);
+  border-radius: 50%;
+  animation: ai-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes ai-pulse {
+  0%, 100% { opacity: 1;   transform: scale(1);    }
+  50%       { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* ─── Two-column body ───────────────────────── */
+
+.ai-insights .ai-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .ai-insights .ai-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Panel icon ────────────────────────────── */
+
+.ai-insights .panel-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal-500);
+  flex-shrink: 0;
+}
+
+/* ─── Panel header row ──────────────────────── */
+
+.ai-insights .ai-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ai-insights .ai-panel-header h2 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--slate-900);
+  margin: 0 0 2px 0;
+}
+
+.ai-insights .ai-panel-header p {
+  font-size: 12.5px;
+  color: var(--slate-500);
+  margin: 0;
+}
+
+/* ─── Form fields (extend global form styles) ── */
+
+.ai-insights .ai-textarea {
+  padding: 9px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--slate-900);
+  background: var(--white);
+  transition: border-color var(--ease-fast), box-shadow var(--ease-fast);
+  outline: none;
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.ai-insights .ai-textarea:focus {
+  border-color: var(--teal-500);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+}
+
+.ai-insights .ai-textarea::placeholder {
+  color: var(--slate-400);
+}
+
+/* ─── Info pill ─────────────────────────────── */
+
+.ai-insights .tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 11px;
+  font-size: 12px;
+  color: var(--slate-500);
+  line-height: 1.4;
+}
+
+/* ─── Generate button ───────────────────────── */
+
+.ai-insights .btn-generate {
+  width: 100%;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, var(--teal-500), var(--blue-500));
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.25);
+  transition:
+    background var(--ease-fast),
+    box-shadow var(--ease-fast),
+    transform 0.12s ease,
+    opacity var(--ease-fast);
+  margin-top: 4px;
+}
+
+.ai-insights .btn-generate:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--teal-dark), var(--blue-dark));
+  box-shadow: 0 4px 14px rgba(20, 184, 166, 0.35);
+  transform: translateY(-1px);
+}
+
+.ai-insights .btn-generate:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.ai-insights .btn-generate:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ai-insights .btn-generate.loading {
+  background: var(--bg);
+  color: var(--slate-500);
+  border: 1.5px solid var(--border);
+  box-shadow: none;
+}
+
+/* ─── Spinner (local — avoids name collision) ── */
+
+.ai-insights .ai-spin {
+  width: 15px;
+  height: 15px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: ai-spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes ai-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Result panel ──────────────────────────── */
+
+.ai-insights .ai-result-panel {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+}
+
+.ai-insights .result-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.ai-insights .result-panel-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--slate-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ai-insights .result-panel-title span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--teal-500);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ai-insights .btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--slate-500);
+  cursor: pointer;
+  transition: border-color var(--ease-fast), color var(--ease-fast), background var(--ease-fast);
+}
+
+.ai-insights .btn-copy:hover {
+  border-color: var(--teal-500);
+  color: var(--teal-500);
+}
+
+.ai-insights .btn-copy.copied {
+  border-color: var(--teal-500);
+  color: var(--teal-dark);
+  background: #f0fdfa;
+}
+
+.ai-insights .result-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.ai-insights .result-text {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--slate-700);
+  white-space: pre-wrap;
+}
+
+/* ─── Empty state ───────────────────────────── */
+
+.ai-insights .result-empty {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 2rem;
+}
+
+.ai-insights .result-empty-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--slate-400);
+  margin-bottom: 4px;
+}
+
+.ai-insights .result-empty p {
+  color: var(--slate-400);
+  font-size: 13px;
+  max-width: 200px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ─── Loading state ─────────────────────────── */
+
+.ai-insights .result-loading {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.ai-insights .loading-bars {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  height: 28px;
+}
+
+.ai-insights .loading-bar {
+  width: 4px;
+  background: var(--teal-500);
+  border-radius: 2px;
+  animation: ai-bar 1.2s ease-in-out infinite;
+}
+
+.ai-insights .loading-bar:nth-child(1) { height: 10px; animation-delay: 0s;   }
+.ai-insights .loading-bar:nth-child(2) { height: 18px; animation-delay: 0.1s; }
+.ai-insights .loading-bar:nth-child(3) { height: 26px; animation-delay: 0.2s; }
+.ai-insights .loading-bar:nth-child(4) { height: 18px; animation-delay: 0.3s; }
+.ai-insights .loading-bar:nth-child(5) { height: 10px; animation-delay: 0.4s; }
+
+@keyframes ai-bar {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.3; }
+  50%       { transform: scaleY(1.2); opacity: 1;   }
+}
+
+.ai-insights .result-loading strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate-700);
+  margin-bottom: 2px;
+}
+
+.ai-insights .result-loading p {
+  color: var(--slate-500);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* ─── Skeleton lines ────────────────────────── */
+
+.ai-insights .skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.ai-insights .skeleton-line {
+  height: 11px;
+  background: linear-gradient(
+    90deg,
+    var(--bg)          25%,
+    var(--border-light) 50%,
+    var(--bg)          75%
+  );
+  background-size: 200% 100%;
+  animation: ai-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.ai-insights .skeleton-line:nth-child(2) { width: 85%; animation-delay: 0.1s; }
+.ai-insights .skeleton-line:nth-child(3) { width: 92%; animation-delay: 0.2s; }
+.ai-insights .skeleton-line:nth-child(4) { width: 70%; animation-delay: 0.3s; }
+.ai-insights .skeleton-line:nth-child(5) { width: 88%; animation-delay: 0.4s; }
+.ai-insights .skeleton-line:nth-child(6) { width: 55%; animation-delay: 0.5s; }
+
+@keyframes ai-shimmer {
+  0%   { background-position: 200% 0;  }
+  100% { background-position: -200% 0; }
+}

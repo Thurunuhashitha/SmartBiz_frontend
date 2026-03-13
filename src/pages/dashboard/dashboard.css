@@ -1,0 +1,351 @@
+/* =============================================
+   Dashboard — Page Styles
+   All rules scoped under .dashboard-page
+   Uses global.css tokens throughout
+   ============================================= */
+
+/* ─── Stat Cards Grid ───────────────────────── */
+
+.dashboard-page .dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1100px) {
+  .dashboard-page .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .dashboard-page .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+.dashboard-page .stat-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--ease-fast), box-shadow var(--ease-fast);
+  animation: card-in 0.3s ease both;
+}
+
+.dashboard-page .stat-card:nth-child(1) { animation-delay: 0.05s; }
+.dashboard-page .stat-card:nth-child(2) { animation-delay: 0.10s; }
+.dashboard-page .stat-card:nth-child(3) { animation-delay: 0.15s; }
+.dashboard-page .stat-card:nth-child(4) { animation-delay: 0.20s; }
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard-page .stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+}
+
+/* Subtle top accent bar */
+.dashboard-page .stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.dashboard-page .stat-card--blue::before   { background: linear-gradient(90deg, var(--blue-500), #38bdf8); }
+.dashboard-page .stat-card--orange::before { background: linear-gradient(90deg, #f97316, #fb923c); }
+.dashboard-page .stat-card--purple::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+.dashboard-page .stat-card--red::before    { background: linear-gradient(90deg, var(--red-500), #f87171); }
+
+.dashboard-page .stat-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-page .stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--slate-500);
+  margin: 0;
+}
+
+.dashboard-page .stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dashboard-page .stat-icon--blue   { background: #eff6ff; color: var(--blue-500); }
+.dashboard-page .stat-icon--orange { background: #fff7ed; color: #f97316; }
+.dashboard-page .stat-icon--purple { background: #f5f3ff; color: #8b5cf6; }
+.dashboard-page .stat-icon--red    { background: var(--red-100); color: var(--red-500); }
+
+.dashboard-page .stat-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin: 0;
+  line-height: 1;
+}
+
+.dashboard-page .stat-footer {
+  font-size: 12px;
+  color: var(--slate-400);
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+}
+
+/* ─── Profit Overview Section ───────────────── */
+
+.dashboard-page .section-heading {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--slate-900);
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-page .section-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.dashboard-page .profit-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 1100px) {
+  .dashboard-page .profit-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .dashboard-page .profit-grid { grid-template-columns: 1fr; }
+}
+
+.dashboard-page .profit-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: background var(--ease-fast);
+}
+
+.dashboard-page .profit-card:hover {
+  background: #f8fafc;
+}
+
+.dashboard-page .profit-card--highlight {
+  background: var(--navy-900);
+  border-color: var(--navy-800);
+}
+
+.dashboard-page .profit-card--highlight:hover {
+  background: var(--navy-800);
+}
+
+.dashboard-page .profit-emoji {
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.dashboard-page .profit-label {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--slate-500);
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+}
+
+.dashboard-page .profit-card--highlight .profit-label {
+  color: var(--slate-400);
+}
+
+.dashboard-page .profit-value {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.dashboard-page .profit-value--positive { color: var(--teal-500); }
+.dashboard-page .profit-value--negative { color: var(--red-500); }
+.dashboard-page .profit-value--highlight-pos { color: #4ade80; }
+.dashboard-page .profit-value--highlight-neg { color: #f87171; }
+
+/* ─── Error Banner ──────────────────────────── */
+
+.dashboard-page .error-banner {
+  background: var(--red-100);
+  border: 1px solid var(--red-200);
+  color: var(--red-700);
+  padding: 11px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── Loading ───────────────────────────────── */
+
+.dashboard-page .loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 12px;
+  color: var(--slate-500);
+  font-size: 14px;
+}
+
+/* ─── Reports Section ───────────────────────── */
+
+.dashboard-page .reports-section {
+  margin-top: 20px;
+}
+
+.dashboard-page .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.dashboard-page .section-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--slate-900);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Decorative rule after title */
+.dashboard-page .section-title::after {
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--teal-500), var(--blue-500));
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.dashboard-page .reports-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .dashboard-page .reports-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-page .report-card {
+  animation: card-in 0.3s ease both;
+  animation-delay: 0.25s;
+}
+
+/* Product / expense name pill */
+.dashboard-page .expense-name {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--slate-700);
+  white-space: nowrap;
+}
+
+/* Rank badge for top products */
+.dashboard-page .rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--bg);
+  color: var(--slate-500);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.dashboard-page .rank-badge--1 {
+  background: #fefce8;
+  border-color: #fde047;
+  color: #854d0e;
+}
+
+.dashboard-page .rank-badge--2 {
+  background: #f8fafc;
+  border-color: var(--slate-300);
+  color: var(--slate-600);
+}
+
+.dashboard-page .rank-badge--3 {
+  background: #fff7ed;
+  border-color: #fdba74;
+  color: #9a3412;
+}
+
+/* Revenue cell — teal tint */
+.dashboard-page .revenue-cell {
+  font-weight: 600;
+  color: var(--teal-dark);
+}
+
+/* Total cell */
+.dashboard-page .total-cell {
+  font-weight: 500;
+  color: var(--slate-700);
+}
+
+/* Date cell */
+.dashboard-page .date-cell {
+  color: var(--slate-400);
+  font-size: 12.5px;
+  white-space: nowrap;
+}

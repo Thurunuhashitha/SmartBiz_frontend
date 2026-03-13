@@ -1,0 +1,173 @@
+/* =============================================
+   SmartBiz — Sales Overview Page
+   sales.css  |  Requires global.css
+   ============================================= */
+
+/* ── Summary Cards ───────────────────────── */
+.sales-summary-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.sales-summary-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: box-shadow var(--ease-fast);
+  animation: panel-in 0.22s ease;
+}
+
+.sales-summary-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.sales-summary-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.sales-summary-icon--teal   { background: #f0fdfa; }
+.sales-summary-icon--blue   { background: #eff6ff; }
+.sales-summary-icon--purple { background: #f5f3ff; }
+
+.sales-summary-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--slate-500);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin: 0 0 5px;
+}
+
+.sales-summary-value {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin: 0;
+  line-height: 1;
+}
+
+.sales-summary-value--product {
+  font-size: 15px;
+  color: var(--teal-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+/* ── Product Tag ─────────────────────────── */
+.product-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #f0fdfa;
+  color: #0f766e;
+  border: 1px solid #ccfbf1;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+/* ── Quantity Badge ──────────────────────── */
+.qty-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+/* ── Price Cells ─────────────────────────── */
+.unit-price {
+  font-weight: 600;
+  color: var(--slate-700);
+}
+
+.sale-total {
+  font-weight: 700;
+  color: var(--teal-dark);
+  font-size: 13.5px;
+}
+
+/* ── Table Footer Total Row ──────────────── */
+.table-total-row {
+  background: linear-gradient(135deg, #f0fdfa, #e0f2fe);
+  border-top: 2px solid #ccfbf1;
+}
+
+.table-total-row td {
+  border-bottom: none;
+  padding: 14px 18px;
+}
+
+.table-total-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #0f766e;
+}
+
+.table-total-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f766e;
+}
+
+/* ── Empty State ─────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.empty-state-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--slate-900);
+  margin-bottom: 8px;
+}
+
+.empty-state-sub {
+  font-size: 13.5px;
+  color: var(--slate-500);
+  max-width: 360px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 900px) {
+  .sales-summary-row { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .sales-summary-row { grid-template-columns: 1fr; }
+}
