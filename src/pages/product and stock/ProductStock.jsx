@@ -19,7 +19,7 @@ export default function ProductCRUD() {
   const getAllStock = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/product/getAllProducts", {
+      const res = await fetch("https://smartbizapi.thurunu.me/product/getAllProducts", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();

@@ -18,7 +18,7 @@ export default function SalesPage() {
   const fetchSales = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/customer/getAllCustomers", {
+      const res = await fetch("https://smartbizapi.thurunu.me/customer/getAllCustomers", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();

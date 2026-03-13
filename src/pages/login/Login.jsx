@@ -20,7 +20,7 @@ export default function Login() {
     }
     setLoading(true)
     try {
-      const response = await axios.post('http://localhost:3000/auth/login', {
+      const response = await axios.post('https://smartbizapi.thurunu.me/auth/login', {
         company_name: companyName,
         password: password,
       })

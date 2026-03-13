@@ -38,7 +38,7 @@ export default function SupplierCRUD() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/supplier/createSupplier", {
+      const res = await fetch("https://smartbizapi.thurunu.me/supplier/createSupplier", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ name, product, quantity, price, phone  }),
@@ -55,7 +55,7 @@ export default function SupplierCRUD() {
   const getAllSuppliers = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/supplier/getAllSuppliers", {
+      const res = await fetch("https://smartbizapi.thurunu.me/supplier/getAllSuppliers", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -68,7 +68,7 @@ export default function SupplierCRUD() {
     if (!id) return showToast("Enter supplier ID", "error");
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/supplier/getSupplierById/${id}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/supplier/getSupplierById/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -82,7 +82,7 @@ export default function SupplierCRUD() {
     if (!id) return showToast("Enter supplier ID", "error");
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/supplier/updateSupplier/${id}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/supplier/updateSupplier/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ name, product, quantity, price, phone }),
@@ -106,7 +106,7 @@ export default function SupplierCRUD() {
 
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/supplier/deleteSupplier/${supplierId}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/supplier/deleteSupplier/${supplierId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

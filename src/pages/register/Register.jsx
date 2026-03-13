@@ -37,7 +37,7 @@ export default function Register() {
     }
     setLoading(true)
     try {
-      const response = await axios.post('http://localhost:3000/auth/register', {
+      const response = await axios.post('https://smartbizapi.thurunu.me/auth/register', {
         company_name: companyName,
         owner,
         email,

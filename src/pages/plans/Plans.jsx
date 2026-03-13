@@ -42,7 +42,7 @@ const Plans = () => {
   const fetchPlans = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3000/plans/getall', {
+      const response = await axios.get('https://smartbizapi.thurunu.me/plans/getall', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPlans(response.data);
@@ -54,7 +54,7 @@ const Plans = () => {
   const fetchCurrentPlan = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3000/plans/current', {
+      const response = await axios.get('https://smartbizapi.thurunu.me/plans/current', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.plan_id) {
@@ -80,7 +80,7 @@ const Plans = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:3000/plans/activate',
+        'https://smartbizapi.thurunu.me/plans/activate',
         { plan_id: planId },
         { headers: { Authorization: `Bearer ${token}` } },
       );
