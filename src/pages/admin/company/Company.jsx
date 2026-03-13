@@ -32,7 +32,7 @@ export default function Company() {
   const getAll = async () => {
     setLoading(true)
     try {
-      const res = await fetch('http://localhost:3000/admin/getallcompanies', {
+      const res = await fetch('https://smartbizapi.thurunu.me/admin/getallcompanies', {
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       })
       const data = await res.json()
@@ -46,7 +46,7 @@ export default function Company() {
     if (!id) return showToast('Enter a Company ID', 'error')
     setLoading(true)
     try {
-      const res = await fetch(`http://localhost:3000/admin/updatecompany/${id}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/admin/updatecompany/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ company_name, owner, email, phone }),
@@ -72,7 +72,7 @@ export default function Company() {
     if (!id) return showToast('Enter a Company ID', 'error')
     setLoading(true)
     try {
-      const res = await fetch(`http://localhost:3000/admin/deletecompany/${id}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/admin/deletecompany/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       })

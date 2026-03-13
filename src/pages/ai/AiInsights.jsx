@@ -94,12 +94,12 @@ const AiInsights = () => {
     setLoading(true); setResult("");
     try {
       const [salesRes, expenseRes] = await Promise.all([
-        fetch("http://localhost:3000/customer/getAllCustomers", { headers: { Authorization: `Bearer ${token}` } }),
-        fetch("http://localhost:3000/expense/getAllExpenses",   { headers: { Authorization: `Bearer ${token}` } }),
+        fetch("https://smartbizapi.thurunu.me/customer/getAllCustomers", { headers: { Authorization: `Bearer ${token}` } }),
+        fetch("https://smartbizapi.thurunu.me/expense/getAllExpenses",   { headers: { Authorization: `Bearer ${token}` } }),
       ]);
       const salesData   = await salesRes.json();
       const expenseData = await expenseRes.json();
-      const aiRes  = await fetch("http://localhost:3000/ai/report", {
+      const aiRes  = await fetch("https://smartbizapi.thurunu.me/ai/report", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ timeframe: reportTimeframe, salesData: salesData.slice(0, 50), expenseData: expenseData.slice(0, 50) }),
@@ -114,7 +114,7 @@ const AiInsights = () => {
     if (!emailDetails.name || !emailDetails.context) { alert("Please fill in customer name and context."); return; }
     setLoading(true); setResult("");
     try {
-      const res  = await fetch("http://localhost:3000/ai/email", {
+      const res  = await fetch("https://smartbizapi.thurunu.me/ai/email", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ customerName: emailDetails.name, context: emailDetails.context, type: emailDetails.type }),
@@ -129,7 +129,7 @@ const AiInsights = () => {
     if (!marketingDetails.details) { alert("Please provide product details."); return; }
     setLoading(true); setResult("");
     try {
-      const res  = await fetch("http://localhost:3000/ai/marketing", {
+      const res  = await fetch("https://smartbizapi.thurunu.me/ai/marketing", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ platform: marketingDetails.platform, productDetails: marketingDetails.details, tone: marketingDetails.tone }),

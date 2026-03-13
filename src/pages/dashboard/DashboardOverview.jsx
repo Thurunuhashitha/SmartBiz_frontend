@@ -91,8 +91,8 @@ export default function DashboardOverview() {
     setError(null);
     try {
       const [statsRes, reportRes] = await Promise.all([
-        fetch("http://localhost:3000/dashboard/getStats",       { headers: { Authorization: `Bearer ${token}` } }),
-        fetch("http://localhost:3000/dashboard/getSalesReport", { headers: { Authorization: `Bearer ${token}` } }),
+        fetch("https://smartbizapi.thurunu.me/dashboard/getStats",       { headers: { Authorization: `Bearer ${token}` } }),
+        fetch("https://smartbizapi.thurunu.me/dashboard/getSalesReport", { headers: { Authorization: `Bearer ${token}` } }),
       ]);
       const statsData  = await statsRes.json();
       const reportData = await reportRes.json();

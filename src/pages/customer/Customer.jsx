@@ -48,7 +48,7 @@ export default function CustomerCRUD() {
   // ── API Calls ──────────────────────────────
   const fetchAvailableProducts = async () => {
     try {
-      const res = await fetch("http://localhost:3000/product/getAvailableProducts", {
+      const res = await fetch("https://smartbizapi.thurunu.me/product/getAvailableProducts", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -64,7 +64,7 @@ export default function CustomerCRUD() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/customer/createCustomer", {
+      const res = await fetch("https://smartbizapi.thurunu.me/customer/createCustomer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export default function CustomerCRUD() {
   const getAllCustomers = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/customer/getAllCustomers", {
+      const res = await fetch("https://smartbizapi.thurunu.me/customer/getAllCustomers", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -102,7 +102,7 @@ export default function CustomerCRUD() {
     if (!id) return showToast("Enter customer ID", "error");
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/customer/getCustomerById/${id}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/customer/getCustomerById/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -118,7 +118,7 @@ export default function CustomerCRUD() {
     if (!id) return showToast("Enter customer ID", "error");
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/customer/updateCustomer/${id}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/customer/updateCustomer/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ customer_name, phone, email, product, quantity, unit_price, sale_date }),
@@ -147,7 +147,7 @@ export default function CustomerCRUD() {
 
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/customer/deleteCustomer/${customerId}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/customer/deleteCustomer/${customerId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

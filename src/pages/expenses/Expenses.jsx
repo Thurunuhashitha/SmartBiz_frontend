@@ -31,7 +31,7 @@ export default function ExpenseCRUD() {
     if (!expense || !amount || !date) return showToast("Please fill all fields", "error");
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/expense/createExpense", {
+      const res = await fetch("https://smartbizapi.thurunu.me/expense/createExpense", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ expense, amount, date }),
@@ -46,7 +46,7 @@ export default function ExpenseCRUD() {
   const getAllExpenses = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/expense/getAllExpenses", {
+      const res = await fetch("https://smartbizapi.thurunu.me/expense/getAllExpenses", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -60,7 +60,7 @@ export default function ExpenseCRUD() {
     if (!id) return showToast("Enter expense ID", "error");
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/expense/getExpenseById/${id}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/expense/getExpenseById/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -74,7 +74,7 @@ export default function ExpenseCRUD() {
     if (!id) return showToast("Enter expense ID", "error");
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/expense/updateExpense/${id}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/expense/updateExpense/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ expense, amount, date }),
@@ -90,7 +90,7 @@ export default function ExpenseCRUD() {
     if (!id) return showToast("Enter expense ID", "error");
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/expense/deleteExpense/${id}`, {
+      const res = await fetch(`https://smartbizapi.thurunu.me/expense/deleteExpense/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -13,7 +13,7 @@ const AdminPlans = () => {
   const fetchPlans = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3000/plans/getall', {
+      const response = await axios.get('https://smartbizapi.thurunu.me/plans/getall', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setPlans(response.data);
@@ -41,12 +41,12 @@ const AdminPlans = () => {
     const token = localStorage.getItem('token');
     try {
       if (editingId) {
-        await axios.put(`http://localhost:3000/plans/update/${editingId}`, formData, {
+        await axios.put(`https://smartbizapi.thurunu.me/plans/update/${editingId}`, formData, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setMessage({ type: 'success', text: 'Plan updated successfully' });
       } else {
-        await axios.post('http://localhost:3000/plans/create', formData, {
+        await axios.post('https://smartbizapi.thurunu.me/plans/create', formData, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setMessage({ type: 'success', text: 'Plan created successfully' });
@@ -74,7 +74,7 @@ const AdminPlans = () => {
     if (!window.confirm('Are you sure you want to delete this plan?')) return;
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:3000/plans/delete/${id}`, {
+      await axios.delete(`https://smartbizapi.thurunu.me/plans/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessage({ type: 'success', text: 'Plan deleted successfully' });

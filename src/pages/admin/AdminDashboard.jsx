@@ -59,7 +59,7 @@ const AdminDashboard = () => {
 
   const token = localStorage.getItem('token');
   const api   = axios.create({
-    baseURL: 'http://localhost:3000/admin',
+    baseURL: 'https://smartbizapi.thurunu.me/admin',
     headers: { Authorization: `Bearer ${token}` },
   });
 
