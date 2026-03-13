@@ -53,10 +53,21 @@ const Plans = () => {
 
   const fetchCurrentPlan = async () => {
     try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:3000/plans/current', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (response.data.plan_id) {
+        setCurrentPlanId(response.data.plan_id);
+        // Also sync the local user object with truth
+        const user = JSON.parse(localStorage.getItem('user')) || {};
+        user.plan_id = response.data.plan_id;
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+    } catch (error) {
+      console.error('Error fetching current plan API, falling back to local storage:', error);
       const user = JSON.parse(localStorage.getItem('user'));
       if (user?.plan_id) setCurrentPlanId(user.plan_id);
-    } catch (error) {
-      console.error('Error fetching current plan:', error);
     } finally {
       setLoading(false);
     }

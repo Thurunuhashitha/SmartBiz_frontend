@@ -26,6 +26,9 @@ export default function Login() {
       })
 
       localStorage.setItem('token', response.data.token)
+      if (response.data.user) {
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+      }
 
       if (companyName === 'admin@gmail.com') {
         navigate('/admin/dashboard')
