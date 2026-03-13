@@ -137,21 +137,31 @@ export default function CustomerCRUD() {
 
   const deleteCustomer = async () => {
     if (!id) return showToast("Enter customer ID", "error");
+    handleDeleteCustomer(id);
+    setId("");
+    setActiveSection(null);
+  };
+
+  const handleDeleteCustomer = async (customerId) => {
+    if (!window.confirm("Are you sure you want to delete this customer?")) return;
+
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/customer/deleteCustomer/${id}`, {
+      const res = await fetch(`http://localhost:3000/customer/deleteCustomer/${customerId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
       if (res.ok) {
         showToast("Customer deleted successfully");
-        setCustomers((prev) => prev.filter((c) => String(c.cID) !== String(id)));
-        setId("");
-        setActiveSection(null);
-      } else showToast(data.error || "Failed to delete customer", "error");
-    } catch {
-      showToast("Error deleting customer", "error");
+        setCustomers((prev) => prev.filter((c) => String(c.cID) !== String(customerId)));
+      } else {
+        console.error("Delete customer failed:", data);
+        showToast(data.error || "Failed to delete customer", "error");
+      }
+    } catch (err) {
+      console.error("Delete customer network error:", err);
+      showToast("Network error: Could not reach server", "error");
     }
     setLoading(false);
   };
@@ -383,6 +393,7 @@ export default function CustomerCRUD() {
                     <th>Sale Date</th>
                     <th>Phone</th>
                     <th>Email</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -401,6 +412,15 @@ export default function CustomerCRUD() {
                       <td>{c.sale_date ? new Date(c.sale_date).toLocaleDateString() : "—"}</td>
                       <td><a className="contact-link" href={`tel:${c.phone}`}>📞 {c.phone}</a></td>
                       <td><a className="contact-link" href={`mailto:${c.email}`}>✉ {c.email}</a></td>
+                      <td>
+                        <button 
+                          className="btn btn--danger btn--sm" 
+                          onClick={() => handleDeleteCustomer(c.cID)}
+                          title="Delete Customer"
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

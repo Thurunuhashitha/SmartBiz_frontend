@@ -45,7 +45,9 @@ export default function SupplierCRUD() {
       });
       const data = await res.json();
       if (res.ok) { showToast("Supplier created successfully"); resetForm(); setActiveSection(null); }
-      else showToast(data.error || "Failed to create supplier", "error");
+      else {
+        showToast(data.message || data.error || "Failed to create supplier", "error");
+      }
     } catch { showToast("Error creating supplier", "error"); }
     setLoading(false);
   };
@@ -94,19 +96,31 @@ export default function SupplierCRUD() {
 
   const deleteSupplier = async () => {
     if (!id) return showToast("Enter supplier ID", "error");
+    handleDeleteSupplier(id);
+    setId(""); 
+    setActiveSection(null);
+  };
+
+  const handleDeleteSupplier = async (supplierId) => {
+    if (!window.confirm("Are you sure you want to delete this supplier?")) return;
+
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/supplier/deleteSupplier/${id}`, {
+      const res = await fetch(`http://localhost:3000/supplier/deleteSupplier/${supplierId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
       if (res.ok) {
         showToast("Supplier deleted successfully");
-        setSuppliers((prev) => prev.filter((s) => String(s.sID) !== String(id)));
-        setId(""); setActiveSection(null);
-      } else showToast(data.error || "Failed to delete supplier", "error");
-    } catch { showToast("Error deleting supplier", "error"); }
+        setSuppliers((prev) => prev.filter((s) => String(s.sID) !== String(supplierId)));
+      } else {
+        showToast(data.error || "Failed to delete supplier", "error");
+      }
+    } catch (err) {
+      console.error("Delete supplier network error:", err);
+      showToast("Network error: Could not reach server", "error");
+    }
     setLoading(false);
   };
 
@@ -313,6 +327,7 @@ export default function SupplierCRUD() {
                     <th>Price</th>
                     <th>Phone</th>
                     <th>Supply Date</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -334,6 +349,15 @@ export default function SupplierCRUD() {
                         <a className="contact-link" href={`tel:${s.phone}`}>📞 {s.phone}</a>
                       </td>
                       <td>{s.supply_date ? new Date(s.supply_date).toLocaleDateString() : "—"}</td>
+                      <td>
+                        <button 
+                          className="btn btn--danger btn--sm" 
+                          onClick={() => handleDeleteSupplier(s.sID)}
+                          title="Delete Supplier"
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
